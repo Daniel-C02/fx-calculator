@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Lot Size Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <header class="calc-header">
+            <h1>Forex Lot Size Calculator</h1>
+            <p class="subtitle">Risk-Based Position Sizing Engine</p>
+            <div id="api-status" class="status-badge status-loading">
+                <span class="status-dot"></span>
+                <span id="status-text">Initializing...</span>
+            </div>
+        </header>
+
+        <main class="calc-grid">
+            <section class="card panel-inputs">
+                <h2>Parameters</h2>
+                <form id="calc-form" autocomplete="off" onsubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <label for="balance">Account Balance (USD)</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">$</span>
+                            <input type="number" id="balance" step="any" min="1" placeholder="10000" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="risk">Risk Percentage</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="risk" step="0.1" min="0.1" max="100" placeholder="1.0" required>
+                            <span class="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pair">Currency Pair</label>
+                        <div class="input-wrapper">
+                            <select id="pair" required></select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="stoploss">Stop Loss (Pips)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="stoploss" step="0.1" min="0.1" placeholder="20" required>
+                            <span class="input-suffix">pips</span>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card panel-outputs">
+                <h2>Calculation Results</h2>
+                
+                <div class="result-display primary-result">
+                    <span class="result-label">Recommended Position Size</span>
+                    <div class="result-value" id="out-lots">0.00</div>
+                    <span class="result-unit">Standard Lots</span>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">Amount at Risk</span>
+                        <span class="metric-value" id="out-risk-amount">$0.00</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Implied Pip Value (Per Lot)</span>
+                        <span class="metric-value" id="out-pip-value">$0.00</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Conversion Rate</span>
+                        <input type="number" step="0.0001" class="metric-value-input" id="out-live-rate">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="calc-footer">
+            <p>Calculations use real-time institutional exchange conversion formulas. Trade responsibly.</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
